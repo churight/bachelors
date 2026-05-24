@@ -297,7 +297,7 @@ Skipped 26 keypoint samples with non-42 feature length
 
 ---
 
-## Використані джерела / література
+## Використані джерела / література (без наукових статей)
 
 - OpenCV documentation: https://docs.opencv.org/
 - MediaPipe Hands documentation: https://developers.google.com/mediapipe/solutions/vision/hand_landmarker
