@@ -21,11 +21,7 @@
 - `scikit-learn`
 - `h5py`
 
-У цьому проєкті використовується віртуальне середовище:
-
-```powershell
-C:\Projects\venv310\Scripts\python.exe
-```
+Проєкт використовує Python v3.10
 
 ## Структура проєкту
 
@@ -46,8 +42,8 @@ Bachelors/
 З кореня проєкту:
 
 ```powershell
-cd C:\Projects\Bachelors
-C:\Projects\venv310\Scripts\python.exe joint_interface.py
+cd bachelors 
+joint_interface.py
 ```
 
 В інтерфейсі доступні дії:
@@ -160,31 +156,31 @@ models/custom_<назва_датасету>_cnn.history.json
 ### Збір фото
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe get_photos.py --data-dir Data/Photos/Test --classes 29 --dataset-size 100
+get_photos.py --data-dir Data/Photos/Test --classes 29 --dataset-size 100
 ```
 
 ### Витяг ключових точок
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe extract_keypoints.py --data-dir Data/Photos/Test --output Data/Test_keypoints.pickle
+extract_keypoints.py --data-dir Data/Photos/Test --output Data/Test_keypoints.pickle
 ```
 
 ### Навчання MLP
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe train_models.py --data-dir Data/Photos/Test --keypoints Data/Test_keypoints.pickle --model-type MLP --name Test --epochs 30
+train_models.py --data-dir Data/Photos/Test --keypoints Data/Test_keypoints.pickle --model-type MLP --name Test --epochs 30
 ```
 
 ### Навчання CNN
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe train_models.py --data-dir Data/Photos/Test --model-type CNN --name Test --epochs 30
+train_models.py --data-dir Data/Photos/Test --model-type CNN --name Test --epochs 30
 ```
 
 ### Запуск стандартної MLP Combined
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe real_time_recogntion.py
+real_time_recogntion.py
 ```
 
 За замовчуванням запускається:
@@ -196,7 +192,7 @@ MLP / Combined
 ### Запуск конкретної MLP моделі
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe real_time_recogntion.py --model-type MLP --person K
+real_time_recogntion.py --model-type MLP --person K
 ```
 
 Доступні варіанти:
@@ -212,13 +208,13 @@ Custom
 ### Запуск власної MLP моделі
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe real_time_recogntion.py --model-type MLP --person Custom --model-name Test --mlp-model-path models/custom_Test_mlp.h5 --mlp-labels-path models/custom_Test_mlp_label_map.pkl
+real_time_recogntion.py --model-type MLP --person Custom --model-name Test --mlp-model-path models/custom_Test_mlp.h5 --mlp-labels-path models/custom_Test_mlp_label_map.pkl
 ```
 
 ### Запуск власної CNN моделі
 
 ```powershell
-C:\Projects\venv310\Scripts\python.exe real_time_recogntion.py --model-type CNN --model-name Test --cnn-model-path models/custom_Test_cnn.h5 --cnn-labels-path models/custom_Test_cnn_label_map.pkl
+real_time_recogntion.py --model-type CNN --model-name Test --cnn-model-path models/custom_Test_cnn.h5 --cnn-labels-path models/custom_Test_cnn_label_map.pkl
 ```
 
 ## Примітки щодо MLP
