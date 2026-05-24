@@ -1,0 +1,7 @@
+#ignore Data folder, cause it's gonna be too big
+Data/Data_alphabet_K
+Data/Data_alphabet_O
+Data/Data_alphabet_R
+Data/Data_for_alphabet_prop
+
+models
