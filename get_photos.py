@@ -52,10 +52,10 @@ for j in range(number_of_classes):
         ret, frame = cap.read()
         if not ret:
             raise RuntimeError("Could not read frame from webcam.")
-        cv2.putText(frame, 'Press "Q" to start!', (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 255, 0), 3,
+        cv2.putText(frame, 'Press "S" to start!', (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 255, 0), 3,
                     cv2.LINE_AA)
         cv2.imshow('frame', frame)
-        if cv2.waitKey(25) == ord('q'):
+        if cv2.waitKey(25) == ord('S'):
             break
 
     counter = 0

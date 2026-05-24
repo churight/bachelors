@@ -1,186 +1,231 @@
-# Система розпізнавання жестової абетки
+# Інтелектуальна система розпізнавання та перекладу жестів українського жестового алфавіту 
 
-Проєкт призначений для збору власного датасету жестів, навчання моделей та розпізнавання жестів у реальному часі з вебкамери.
+> Робота проводить дослідження впливу типу та якості даних, а також моделей для завдання розпізнавання жестів українського жестового алфавіту. Для цього був створений настільний Python-застосунок для створення датасету жестів, навчання моделей MLP/CNN та розпізнавання жестової абетки в реальному часі через вебкамеру.
 
-Підтримуються два типи моделей:
+---
 
-- **MLP** - працює з ключовими точками руки, які витягуються через MediaPipe.
-- **CNN** - працює напряму із зображеннями жестів.
+## Автор
 
-Основний спосіб роботи з проєктом - через графічний інтерфейс `joint_interface.py`.
+- **ПІБ**: Чухрай Катерина Олександрівна
+- **Група**: ФЕІ-42с
+- **Керівник**: доц. Демків Л.С.
+- **Дата виконання**: [дд.мм.рррр]
 
-## Вимоги
+---
 
-Потрібні Python та встановлені бібліотеки:
+## Загальна інформація
 
-- `opencv-python`
-- `mediapipe`
-- `numpy`
-- `pillow`
-- `tensorflow`
-- `scikit-learn`
-- `h5py`
+- **Тип проєкту**: настільний застосунок з графічним інтерфейсом
+- **Мова програмування**: Python 3.10
+- **Основні бібліотеки**: OpenCV, MediaPipe, TensorFlow/Keras, NumPy, Pillow, scikit-learn, h5py, Tkinter
+- **Основний файл запуску**: `joint_interface.py`
+- **Джерело відео**: вебкамера
+- **Типи моделей**:
+  - `MLP` - класифікація за ключовими точками руки
+  - `CNN` - класифікація за зображенням жесту
 
-Проєкт використовує Python v3.10
+---
 
-## Структура проєкту
+## Опис функціоналу
+
+- Створення власного фото-датасету з вебкамери.
+- Збереження фото у структурі `Data/Photos/<назва_датасету>/<клас>/`.
+- Витяг ключових точок руки через MediaPipe.
+- Збереження keypoints-файлів у папку `Data/`.
+- Навчання власної MLP моделі на ключових точках.
+- Навчання власної CNN моделі на зображеннях.
+- Запуск стандартних моделей `K`, `O`, `R`, `Combined`.
+- Запуск власної моделі через варіант `Custom`.
+- Розпізнавання жестів у реальному часі.
+- Формування рядка з розпізнаних символів.
+- Очищення або редагування результату під час розпізнавання.
+
+---
+
+## Опис основних файлів
+
+| Файл / папка | Призначення |
+|---|---|
+| `joint_interface.py` | Головний графічний інтерфейс проєкту |
+| `get_photos.py` | Збір фото з вебкамери для нового датасету |
+| `extract_keypoints.py` | Витяг ключових точок руки з фото-датасету |
+| `train_models.py` | Навчання власних MLP та CNN моделей |
+| `real_time_recogntion.py` | Розпізнавання жестів у реальному часі |
+| `Data/Photos/` | Папка з фото-датасетами |
+| `Data/` | Папка з `.pickle` файлами ключових точок |
+| `models/` | Папка зі збереженими моделями та label map файлами |
+| `README.md` | Інструкція користувача |
+
+---
+
+## Структура даних
+
+Фото зберігаються окремо від keypoints-файлів:
 
 ```text
 Bachelors/
-  Data/                    # Pickle-файли з ключовими точками
-  Data/Photos/             # Фото-датасети
-  models/                  # Навчені моделі та label map файли
-  get_photos.py            # Збір фото з вебкамери
-  extract_keypoints.py     # Витяг ключових точок руки
-  train_models.py          # Навчання MLP/CNN моделей
-  real_time_recogntion.py  # Розпізнавання у реальному часі
-  joint_interface.py       # Графічний інтерфейс
+  Data/
+    Photos/
+      Test/
+        0/
+          0.jpg
+          1.jpg
+        1/
+          0.jpg
+          1.jpg
+    Test_keypoints.pickle
+  models/
+    custom_Test_mlp.h5
+    custom_Test_mlp_label_map.pkl
+    custom_Test_cnn.h5
+    custom_Test_cnn_label_map.pkl
 ```
 
-## Запуск графічного інтерфейсу
+---
 
-З кореня проєкту:
+## Як запустити проєкт з нуля
+
+### 1. Встановлення інструментів
+
+Потрібно мати Python 3.10 та встановлені залежності:
+
+```text
+opencv-python
+mediapipe
+numpy
+pillow
+tensorflow
+scikit-learn
+h5py
+```
+
+Якщо використовується віртуальне середовище, активуйте його перед запуском.
+
+### 2. Перехід у папку проєкту
 
 ```powershell
-cd bachelors 
-joint_interface.py
+cd C:\Projects\Bachelors
 ```
 
-В інтерфейсі доступні дії:
+### 3. Запуск графічного інтерфейсу
 
-- **Create Dataset** - створити датасет з вебкамери.
-- **Extract Keypoints** - витягнути ключові точки для MLP.
-- **Train Model** - навчити власну модель.
-- **Real-Time Recognition** - запустити розпізнавання жестів.
-- **Stop Process** - зупинити поточний процес.
+```powershell
+python joint_interface.py
+```
 
-## Повний робочий сценарій
+Або, якщо використовується конкретне середовище:
+
+```powershell
+C:\Projects\venv310\Scripts\python.exe joint_interface.py
+```
+
+---
+
+## Інструкція користувача
 
 ### 1. Створення датасету
 
-1. У полі **Folder name** введіть назву датасету, наприклад `Test`.
-2. Вкажіть кількість класів у полі **Classes**.
-3. Вкажіть кількість зображень на клас у полі **Images per class**.
-4. Натисніть **Create Dataset**.
-5. Для кожного класу програма чекатиме натискання `Q`, після чого почне запис зображень.
+1. Запустіть `joint_interface.py`.
+2. У полі **Folder name** введіть назву датасету, наприклад `Test`.
+3. У полі **Classes** вкажіть кількість класів.
+4. У полі **Images per class** вкажіть кількість фото для кожного класу.
+5. Натисніть **Create Dataset**.
+6. Для кожного класу натискайте `S`, коли будете готові почати запис фото.
 
-Датасет буде збережено у:
+Фото буде збережено у:
 
 ```text
 Data/Photos/<назва_датасету>/
 ```
 
-Кожен клас зберігається в окремій папці:
+### 2. Витяг ключових точок
 
-```text
-Data/Photos/Test/0/
-Data/Photos/Test/1/
-Data/Photos/Test/2/
-...
-```
+Цей крок потрібен для навчання MLP моделі.
 
-### 2. Витяг ключових точок для MLP
-
-Для навчання MLP потрібно спочатку отримати ключові точки руки.
-
-1. Виберіть потрібний датасет у **Folder name**.
+1. Виберіть потрібний датасет у полі **Folder name**.
 2. Натисніть **Extract Keypoints**.
 
-Буде створено файл:
+Після завершення буде створено файл:
 
 ```text
 Data/<назва_датасету>_keypoints.pickle
 ```
 
-Наприклад:
-
-```text
-Data/Test_keypoints.pickle
-```
-
 ### 3. Навчання власної моделі
 
-У блоці **Real-Time Recognition Model** виберіть тип моделі:
+1. Виберіть датасет у полі **Folder name**.
+2. У полі **Model type** виберіть `MLP` або `CNN`.
+3. У полі **Epochs** задайте кількість епох навчання.
+4. Натисніть **Train Model**.
 
-- `MLP` - навчання на ключових точках.
-- `CNN` - навчання на зображеннях.
+Для `MLP` перед навчанням обов'язково потрібно виконати **Extract Keypoints**.
 
-У полі **Epochs** задайте кількість епох навчання.
-
-Після цього натисніть **Train Model**.
-
-Для MLP перед навчанням потрібно виконати **Extract Keypoints**.
-
-Навчені моделі зберігаються в папку `models/`:
+Навчені моделі зберігаються у папку `models/`:
 
 ```text
 models/custom_<назва_датасету>_mlp.h5
 models/custom_<назва_датасету>_mlp_label_map.pkl
-
 models/custom_<назва_датасету>_cnn.h5
 models/custom_<назва_датасету>_cnn_label_map.pkl
 ```
 
-Також створюється файл історії навчання:
-
-```text
-models/custom_<назва_датасету>_mlp.history.json
-models/custom_<назва_датасету>_cnn.history.json
-```
-
 ### 4. Запуск розпізнавання
 
-Для запуску вбудованих моделей:
+Для стандартної моделі:
 
-1. Виберіть `MLP` або `CNN`.
+1. Виберіть **Model type**.
 2. Для `MLP` виберіть одну з моделей: `K`, `O`, `R`, `Combined`.
 3. Натисніть **Real-Time Recognition**.
 
-Для запуску власної моделі:
+Для власної моделі:
 
-1. Виберіть датасет у **Folder name**.
+1. Виберіть датасет.
 2. Виберіть тип моделі `MLP` або `CNN`.
 3. У полі вибору моделі виберіть `Custom`.
 4. Натисніть **Real-Time Recognition**.
 
-У вікні розпізнавання модель тільки відображається як індикатор. Перемикання моделі всередині вікна розпізнавання вимкнено.
+У вікні розпізнавання модель лише відображається як індикатор. Перемикання моделі всередині вікна розпізнавання вимкнено.
 
-Керування у вікні розпізнавання:
+Клавіші керування:
 
-- `Backspace` - видалити останній символ.
-- `C` - очистити поточний текст.
-- `Esc` - закрити вікно.
+| Клавіша | Дія |
+|---|---|
+| `Backspace` | Видалити останній символ |
+| `C` | Очистити поточний текст |
+| `Esc` | Закрити вікно розпізнавання |
+
+---
 
 ## Запуск через командний рядок
 
 ### Збір фото
 
 ```powershell
-get_photos.py --data-dir Data/Photos/Test --classes 29 --dataset-size 100
+python get_photos.py --data-dir Data/Photos/Test --classes 29 --dataset-size 100
 ```
 
 ### Витяг ключових точок
 
 ```powershell
-extract_keypoints.py --data-dir Data/Photos/Test --output Data/Test_keypoints.pickle
+python extract_keypoints.py --data-dir Data/Photos/Test --output Data/Test_keypoints.pickle
 ```
 
 ### Навчання MLP
 
 ```powershell
-train_models.py --data-dir Data/Photos/Test --keypoints Data/Test_keypoints.pickle --model-type MLP --name Test --epochs 30
+python train_models.py --data-dir Data/Photos/Test --keypoints Data/Test_keypoints.pickle --model-type MLP --name Test --epochs 30
 ```
 
 ### Навчання CNN
 
 ```powershell
-train_models.py --data-dir Data/Photos/Test --model-type CNN --name Test --epochs 30
+python train_models.py --data-dir Data/Photos/Test --model-type CNN --name Test --epochs 30
 ```
 
-### Запуск стандартної MLP Combined
+### Запуск стандартної моделі
 
 ```powershell
-real_time_recogntion.py
+python real_time_recogntion.py
 ```
 
 За замовчуванням запускається:
@@ -192,96 +237,77 @@ MLP / Combined
 ### Запуск конкретної MLP моделі
 
 ```powershell
-real_time_recogntion.py --model-type MLP --person K
-```
-
-Доступні варіанти:
-
-```text
-K
-O
-R
-Combined
-Custom
+python real_time_recogntion.py --model-type MLP --person K
 ```
 
 ### Запуск власної MLP моделі
 
 ```powershell
-real_time_recogntion.py --model-type MLP --person Custom --model-name Test --mlp-model-path models/custom_Test_mlp.h5 --mlp-labels-path models/custom_Test_mlp_label_map.pkl
+python real_time_recogntion.py --model-type MLP --person Custom --model-name Test --mlp-model-path models/custom_Test_mlp.h5 --mlp-labels-path models/custom_Test_mlp_label_map.pkl
 ```
 
 ### Запуск власної CNN моделі
 
 ```powershell
-real_time_recogntion.py --model-type CNN --model-name Test --cnn-model-path models/custom_Test_cnn.h5 --cnn-labels-path models/custom_Test_cnn_label_map.pkl
+python real_time_recogntion.py --model-type CNN --model-name Test --cnn-model-path models/custom_Test_cnn.h5 --cnn-labels-path models/custom_Test_cnn_label_map.pkl
 ```
 
-## Примітки щодо MLP
+---
 
-MLP модель очікує один набір ключових точок руки, тобто 42 ознаки:
+## Приклади / скріншоти
+
+### Головне вікно програми
+
+```markdown
+![Головне вікно](Data/screenshots/main-window.png)
+```
+
+### Розпізнавання у реальному часі
+
+```markdown
+![Розпізнавання](Data/screenshots/real-time.png)
+```
+
+---
+
+## Проблеми і рішення
+
+| Проблема | Рішення |
+|---|---|
+| Камера не відкривається | Перевірити підключення вебкамери, дозволи Windows і чи не зайнята камера іншою програмою |
+| Для MLP немає keypoints-файлу | Натиснути **Extract Keypoints** перед навчанням MLP |
+| Custom модель не запускається | Перевірити, що модель навчена для поточного датасету і файли є у папці `models/` |
+| Помилка `batch_shape` або `DTypePolicy` | Запускати актуальний `real_time_recogntion.py`, у якому є сумісний завантажувач моделей |
+| Помилка через різну довжину keypoints | Під час навчання приклади з нетиповою довжиною автоматично пропускаються |
+| Несумісність TensorFlow або MediaPipe | Використати Python 3.10 та встановити залежності у відповідне віртуальне середовище |
+
+---
+
+## Примітки щодо навчання MLP
+
+MLP модель очікує 42 ознаки:
 
 ```text
-21 точка * 2 координати = 42
+21 точка руки * 2 координати = 42
 ```
 
-Якщо під час витягу ключових точок MediaPipe знаходить дві руки, можуть з'явитися приклади з 84 ознаками. Під час навчання такі приклади автоматично пропускаються, якщо більшість датасету має довжину 42.
+Якщо MediaPipe знаходить дві руки, можуть з'явитися приклади з 84 ознаками. Під час навчання такі приклади автоматично пропускаються, якщо більшість датасету має довжину 42.
 
-У логах це може виглядати так:
+Приклад повідомлення:
 
 ```text
 Skipped 26 keypoint samples with non-42 feature length
 ```
 
-Це нормальна поведінка.
+---
 
-## Типові проблеми
+## Використані джерела / література
 
-### Не відкривається камера
+- OpenCV documentation: https://docs.opencv.org/
+- MediaPipe Hands documentation: https://developers.google.com/mediapipe/solutions/vision/hand_landmarker
+- TensorFlow / Keras documentation: https://www.tensorflow.org/
+- scikit-learn documentation: https://scikit-learn.org/
+- Python documentation: https://docs.python.org/3/
 
-Перевірте, що:
 
-- вебкамера підключена;
-- камера не зайнята іншою програмою;
-- Windows дозволяє Python доступ до камери.
-
-### Для MLP пише, що немає keypoints-файлу
-
-Перед навчанням MLP потрібно натиснути **Extract Keypoints**.
-
-Очікуваний файл:
-
-```text
-Data/<назва_датасету>_keypoints.pickle
-```
-
-### Custom модель не запускається
-
-Перевірте, що модель була навчена для поточного датасету і що в папці `models/` є відповідні файли:
-
-```text
-custom_<назва_датасету>_mlp.h5
-custom_<назва_датасету>_mlp_label_map.pkl
-```
-
-або:
-
-```text
-custom_<назва_датасету>_cnn.h5
-custom_<назва_датасету>_cnn_label_map.pkl
-```
-
-### Помилки сумісності Keras
-
-У проєкті є сумісний завантажувач моделей для старіших `.h5` файлів і моделей, збережених новішими версіями Keras. Якщо виникає помилка з `batch_shape` або `DTypePolicy`, використовуйте запуск через актуальний `real_time_recogntion.py`, а не старі копії скрипта.
-
-## Рекомендований порядок роботи
-
-```text
-1. Запустити joint_interface.py
-2. Створити датасет
-3. Для MLP виконати Extract Keypoints
-4. Навчити модель через Train Model
-5. Вибрати Custom
-6. Запустити Real-Time Recognition
-```
+---
