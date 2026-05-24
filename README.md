@@ -258,15 +258,11 @@ python real_time_recogntion.py --model-type CNN --model-name Test --cnn-model-pa
 
 ### Головне вікно програми
 
-```markdown
 ![Головне вікно](Data/screenshots/main-window.png)
-```
 
 ### Розпізнавання у реальному часі
 
-```markdown
 ![Розпізнавання](Data/screenshots/real-time.png)
-```
 
 ---
 
