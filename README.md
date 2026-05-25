@@ -273,6 +273,10 @@ python real_time_recogntion.py --model-type CNN --model-name Test --cnn-model-pa
 
 ![Розпізнавання](Data/screenshots/real-time.png)
 
+#### Приклад розпізнавання та формування текстової послідовності
+
+![Привіт](<Data/screenshots/bachelors example.gif>)
+
 ---
 
 ## Проблеми і рішення
